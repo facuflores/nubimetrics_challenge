@@ -1,1 +1,32 @@
-<P>Listado de productos</P>
+<div class="row">
+  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 mt-2 mb-2" *ngFor="let publication of publications$ | async">
+    <div class="card text-center">
+      <div class="card-body">
+        <span class="badge badge-light condition-type">{{ publication.condition | conditionType }}</span>
+        <img src="{{ publication.thumbnail }}" alt="{{ publication.title }}" class="img-thumbnail">
+
+        <hr />
+
+        <h5 class="card-subtitle"><a href="#">{{ publication.title }}</a></h5>
+        <h5 class="card-title mb-2 mt-1 text-muted">$ {{ publication.price }}</h5>
+
+        <hr />
+
+        <div><span class="mr-1">Publicaci&oacute;n:</span> <span class="badge badge-light">{{ publication.listing_type_id | listingType }}</span></div>
+        
+        <hr />
+
+        <div class="row">
+          <div class="col">
+            <h5>{{ publication.available_quantity }}</h5>
+            <span class="text-muted">Disponibles</span>
+          </div>
+          <div class="col">
+            <h5>{{ publication.sold_quantity }}</h5>
+            <span class="text-muted">Vendidas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

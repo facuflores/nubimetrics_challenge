@@ -1,20 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { PublicationReducer } from './core/store/reducers/publication.reducers';
+
+import { EffectsModule } from '@ngrx/effects';
+import { PublicationEffets } from './core/store/effects/publication.effects';
+
 import { AppComponent } from './modules/components/app/app.component';
-import { NubimetricsHeader, NubimetricsSearch, NubimetricsFilter, NubimetricsList, NubimetricsLayout } from './modules/components/components.index';
+import { ComponentsModule } from './modules/components.module';
+import { ServiceModule } from './core/services/service.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NubimetricsLayout,
-    NubimetricsHeader,
-    NubimetricsSearch,
-    NubimetricsFilter,
-    NubimetricsList
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot({
+      publication: PublicationReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([PublicationEffets]),
+    ServiceModule,
+    ComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
