@@ -4,10 +4,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import { PaginationModule } from 'ngx-bootstrap';
+
 import { NubimetricsHeader, NubimetricsSearch, NubimetricsFilter, NubimetricsList, NubimetricsLayout } from './components/components.index';
 
 import { ListingTypePipe } from '../core/pipes/listing-type.pipe';
 import { ConditionTypePipe } from '../core/pipes/condition-type.pipe';
+import { NubimetricsDetail } from './components/nubimetrics-list/nubimetrics-detail/nubimetrics-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,7 @@ import { ConditionTypePipe } from '../core/pipes/condition-type.pipe';
     NubimetricsSearch,
     NubimetricsFilter,
     NubimetricsList,
+    NubimetricsDetail,
 
     ListingTypePipe,
     ConditionTypePipe
@@ -25,7 +29,8 @@ import { ConditionTypePipe } from '../core/pipes/condition-type.pipe';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    BrowserModule
+    BrowserModule,
+    PaginationModule.forRoot()
   ],
   providers: []
 })

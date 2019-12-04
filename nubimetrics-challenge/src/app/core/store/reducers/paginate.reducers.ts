@@ -16,10 +16,16 @@ const initialState: PagingState = {
   primary_results: 0
 }
 
-export function PublicationReducer(state: PagingState = initialState, action: PaginateAction) {
+export function PaginateReducer(state: PagingState = initialState, action: PaginateAction) {
   switch (action.type) {
     case PaginateActionTypes.REFRESH_PAGINATE:
-      return state;
+      const {paging} = action.payload;
+      return {
+        ...state,
+        page: 1,
+        page_size: PAGE_SIZE,
+        primary_results: paging.primary_results
+      };
     default: return state;
   }
 }

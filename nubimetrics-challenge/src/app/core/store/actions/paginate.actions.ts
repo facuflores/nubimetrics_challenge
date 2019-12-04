@@ -7,7 +7,7 @@ export enum PaginateActionTypes {
 
 export class PaginateRefreshAction implements Action {
   readonly type = PaginateActionTypes.REFRESH_PAGINATE;
-  constructor(payload: {paging: Paging}) {};
+  constructor(public payload: {paging: Paging}) {};
 }
 
 export type PaginateAction = PaginateRefreshAction;

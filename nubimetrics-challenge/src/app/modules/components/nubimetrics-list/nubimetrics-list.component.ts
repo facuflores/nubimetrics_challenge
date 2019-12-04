@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AppState } from 'src/app/core/store/models/app.models';
 import { PublicationSearchAction } from 'src/app/core/store/actions/publication.actions';
 import { selectAllPublications } from 'src/app/core/store/selectors/publication.selectors';
+import { selectAllPaginate } from 'src/app/core/store/selectors/paginate.selectors';
 
 import { Publication } from 'src/app/core/models/publication.model';
 
@@ -15,7 +16,9 @@ import { Publication } from 'src/app/core/models/publication.model';
 })
 export class NubimetricsList implements OnInit {
 
-  public publications$: Observable<Publication[]>;
+  public page: number;
+  public pageSize: number;
+  public publications: Publication[];
 
   constructor(private store: Store<AppState>) {}
 
@@ -25,7 +28,13 @@ export class NubimetricsList implements OnInit {
   }
 
   listeners() {
-    this.publications$ = this.store.select(selectAllPublications);
+    this.store.select(selectAllPublications).subscribe((publications: Publication[]) => {
+      this.publications = publications;
+    });
+    this.store.select(selectAllPaginate).subscribe(({page, page_size}) => {
+      this.page = page;
+      this.pageSize = page_size;
+    });
   }
 
   dispatchers() {

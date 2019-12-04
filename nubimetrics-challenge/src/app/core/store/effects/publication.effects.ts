@@ -7,6 +7,7 @@ import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 import { PublicationSearchAction,PublicationActionTypes, PublicationSearchedAction } from '../actions/publication.actions';
 import { PublicationService } from '../../services/api/publication.service';
 import { ResponseApi } from '../../models/response-api.model';
+import { PaginateRefreshAction } from '../actions/paginate.actions';
 
 
 @Injectable()
@@ -23,8 +24,9 @@ export class PublicationEffets {
     map(action => action.payload),
     mergeMap(({text, offset, limit}) => {
       return this.publicationService.searchPublications(text, offset, limit).pipe(
-        switchMap(({results}: ResponseApi) => [
-          new PublicationSearchedAction({publications: results})
+        switchMap(({paging, results}: ResponseApi) => [
+          new PublicationSearchedAction({publications: results}),
+          new PaginateRefreshAction({paging})
         ]),
         catchError(() => EMPTY)
       );

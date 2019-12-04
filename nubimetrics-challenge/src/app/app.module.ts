@@ -5,6 +5,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { PublicationReducer } from './core/store/reducers/publication.reducers';
+import { PaginateReducer } from './core/store/reducers/paginate.reducers';
 
 import { EffectsModule } from '@ngrx/effects';
 import { PublicationEffets } from './core/store/effects/publication.effects';
@@ -20,6 +21,7 @@ import { ServiceModule } from './core/services/service.module';
   imports: [
     BrowserModule,
     StoreModule.forRoot({
+      paginate: PaginateReducer,
       publication: PublicationReducer
     }),
     StoreDevtoolsModule.instrument({
