@@ -6,6 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { PublicationReducer } from './core/store/reducers/publication.reducers';
 import { PaginateReducer } from './core/store/reducers/paginate.reducers';
+import { FilterOrderReducer } from './core/store/reducers/filter-order.reducer';
 
 import { EffectsModule } from '@ngrx/effects';
 import { PublicationEffets } from './core/store/effects/publication.effects';
@@ -22,7 +23,8 @@ import { ServiceModule } from './core/services/service.module';
     BrowserModule,
     StoreModule.forRoot({
       paginate: PaginateReducer,
-      publication: PublicationReducer
+      publication: PublicationReducer,
+      filter_order: FilterOrderReducer
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

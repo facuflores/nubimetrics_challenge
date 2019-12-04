@@ -4,6 +4,18 @@
   </div>
 </div>
 
+<div class="row" *ngIf="publications.length <= 0 && showNotResult">
+  <div class="col">
+      <div class="alert alert-dismissible alert-info">
+        <h4 class="text-center">No hay publicaciones que coincidan con tu b&uacute;squeda.</h4>
+        <ul class="text-center">
+          <li>Revis&aacute; la ortograf&iacute;a de la palabra.</li>
+          <li>Utiliz&aacute; palabras m&aacute;s gen&eacute;ricas o menos palabras.</li>
+        </ul>
+      </div>
+  </div>
+</div>
+
 <div class="row mt-4" *ngIf="publications.length > 0">
   <div class="col">
     <pagination 

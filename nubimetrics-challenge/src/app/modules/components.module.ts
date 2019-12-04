@@ -6,11 +6,10 @@ import { FormsModule } from '@angular/forms';
 
 import { PaginationModule } from 'ngx-bootstrap';
 
-import { NubimetricsHeader, NubimetricsSearch, NubimetricsFilter, NubimetricsList, NubimetricsLayout } from './components/components.index';
+import { NubimetricsDetail, NubimetricsHeader, NubimetricsSearch, NubimetricsFilter, NubimetricsList, NubimetricsLayout } from './components/components.index';
 
 import { ListingTypePipe } from '../core/pipes/listing-type.pipe';
 import { ConditionTypePipe } from '../core/pipes/condition-type.pipe';
-import { NubimetricsDetail } from './components/nubimetrics-list/nubimetrics-detail/nubimetrics-detail.component';
 
 @NgModule({
   declarations: [

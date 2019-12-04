@@ -1,7 +1,7 @@
-<form>
+<form (submit)="searchText($event)">
   <div class="form-group">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Ingrese texto">
+      <input type="text" class="form-control" id="searchText" name="searchText" placeholder="Ingrese texto" [(ngModel)]="query">
       <div class="input-group-append">
         <button type="submit" class="btn btn-primary">Buscar</button>
       </div>
