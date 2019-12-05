@@ -14,6 +14,7 @@ import { NotificationService } from '../../services/utils/notification.service';
 
 import { ResponseApi } from '../../models/response-api.model';
 import { Publication } from '../../models/publication.model';
+import { LoaderStartAction, LoaderEndAction } from '../actions/loader.actions';
 
 
 @Injectable()
@@ -34,10 +35,14 @@ export class PublicationEffets {
       return this.publicationService.searchPublications(text, offset, limit).pipe(
         switchMap(({results}: ResponseApi) => [
           new PublicationSearchedAction({publications: results}),
-          new PaginateRefreshAction()
+          new PaginateRefreshAction(),
+          new LoaderEndAction()
         ]),
         catchError((err: Error) => {
-          return of(new NotifyErrorAction({message: err.message}));
+          return of([
+            new LoaderEndAction(),
+            new NotifyErrorAction({message: err.message})
+          ]);
         })
       );
     })
@@ -52,10 +57,14 @@ export class PublicationEffets {
         switchMap((results: Publication[]) => [
           new PublicationSearchedAction({publications: results}),
           new PaginateRefreshAction(),
-          new ClearFilterAndOrderAction()
+          new ClearFilterAndOrderAction(),
+          new LoaderEndAction()
         ]),
         catchError((err: Error) => {
-          return of(new NotifyErrorAction({message: err.message}));
+          return of([
+            new LoaderEndAction(),
+            new NotifyErrorAction({message: err.message})
+          ]);
         })
       );
     })
@@ -68,10 +77,14 @@ export class PublicationEffets {
     mergeMap(({id}) => {
       return this.publicationService.findByIdPublication(id).pipe(
         switchMap((publication: Publication) => [
-          new PublicationByIdSearchedAction({publication})
+          new PublicationByIdSearchedAction({publication}),
+          new LoaderEndAction()
         ]),
         catchError((err: Error) => {
-          return of(new NotifyErrorAction({message: err.message}));
+          return of([
+            new LoaderEndAction(),
+            new NotifyErrorAction({message: err.message})
+          ]);
         })
       );
     })

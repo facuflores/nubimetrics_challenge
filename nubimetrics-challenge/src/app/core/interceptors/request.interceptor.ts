@@ -15,7 +15,7 @@ export class RequestInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.store.dispatch(new LoaderStartAction());
-    return next.handle(request).pipe(finalize(() => this.store.dispatch(new LoaderEndAction())));
+    return next.handle(request);
   }
 
 }

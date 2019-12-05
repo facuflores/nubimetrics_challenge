@@ -16,7 +16,7 @@ import { ResponseApi } from '../../models/response-api.model';
 })
 export class PublicationService {
 
-  private TOTAL_PUBLICATION: number = 100;
+  private TOTAL_PUBLICATION: number = 1000;
 
   constructor(private http: HttpClient) {}
 
