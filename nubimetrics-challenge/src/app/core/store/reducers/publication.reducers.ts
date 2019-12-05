@@ -27,6 +27,9 @@ export function PublicationReducer(state: PublicationState = initialState, actio
     case PublicationActionTypes.FILTERED_PUBLICATIONS:
       stateNew.publications.temp = action.payload.publications;
       return stateNew;
+    case PublicationActionTypes.SEARCHED_BY_ID_PUBLICATION:
+      stateNew.publication = action.payload.publication;
+      return stateNew;
     default: return stateNew;
   }
 }

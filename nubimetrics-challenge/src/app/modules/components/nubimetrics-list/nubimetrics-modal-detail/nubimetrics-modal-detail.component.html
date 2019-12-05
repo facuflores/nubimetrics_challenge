@@ -1,0 +1,39 @@
+<div class="modal-header justify-content-center">
+  <h4 class="modal-title text-center">Detalles de Publicaci&oacute;n</h4>
+</div>
+<div class="modal-body modal-md">
+  <div class="card text-center">
+    <div class="card-body">
+      <img src="{{ publication.thumbnail }}" alt="{{ publication.title }}" class="img-thumbnail">
+  
+      <hr />
+  
+      <h5 class="card-subtitle">{{ publication.title }}</h5>
+      <h5 class="card-title mb-2 mt-1 text-muted">Sitio: <span class="badge badge-primary">{{ publication.site_id }}</span></h5>
+  
+      <hr />
+  
+      <div><span class="mr-1">Publicaci&oacute;n:</span> <span class="badge badge-light">{{ publication.status | statusType }}</span></div>
+      
+      <hr />
+
+      <div><span class="mr-1"></span> <span class="badge badge-primary">{{ publication.warranty }}</span></div>
+      
+      <hr />
+  
+      <div class="row">
+        <div class="col">
+          <h5>$ {{ publication.base_price }}</h5>
+          <span class="text-muted">Precio Base</span>
+        </div>
+        <div class="col">
+          <h5>{{ publication.initial_quantity }}</h5>
+          <span class="text-muted">Cantidad Disponible</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cerrar</button>
+</div>

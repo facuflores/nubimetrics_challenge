@@ -7,7 +7,7 @@ import { map, concatMap, expand, toArray } from "rxjs/operators";
 import * as fastFilter from 'fast-filter';
 import * as sort from 'fast-sort';
 
-import * as Api from './../constants';
+import { Api } from './../constants';
 import { Publication } from '../../models/publication.model';
 import { ResponseApi } from '../../models/response-api.model';
 
@@ -19,6 +19,13 @@ export class PublicationService {
   private TOTAL_PUBLICATION: number = 100;
 
   constructor(private http: HttpClient) {}
+
+  private buildPublication(data: Publication): Publication {
+    if (data != null) {
+      data = new Publication(data);
+    }
+    return data;
+  }
 
   private buildPublications(response: ResponseApi): ResponseApi {
     const publications = response.results.map((data) => new Publication(data));
@@ -36,7 +43,7 @@ export class PublicationService {
 
   public searchPublications(text: string, offset: number, limit: number): Observable<ResponseApi> {
     const httpParams = this.buildHttpParams(arguments);
-    return this.http.get<ResponseApi>(Api.default.SEARCH_PUBLICATIONS, {  params: httpParams }).pipe(
+    return this.http.get<ResponseApi>(Api.SEARCH_PUBLICATIONS, {  params: httpParams }).pipe(
       map(response => this.buildPublications(response))
     );
   }
@@ -49,6 +56,13 @@ export class PublicationService {
       ),
       concatMap(({results}: ResponseApi) => results),
       toArray()
+    );
+  }
+
+  public findByIdPublication(id: string): Observable<Publication> {
+    const url = Api.FIND_BY_ID_PUBLICATION.replace(":id", id);
+    return this.http.get<Publication>(url).pipe(
+      map(response => this.buildPublication(response))
     );
   }
 

@@ -4,7 +4,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError, switchMap } from 'rxjs/operators';
 
-import { PublicationSearchAction,PublicationActionTypes, PublicationSearchedAction, PublicationSearchAllAction, PublicationFilteredAction } from '../actions/publication.actions';
+import { PublicationSearchAction,PublicationActionTypes, PublicationSearchedAction, PublicationSearchAllAction, PublicationFilteredAction, PublicationFindByIdAction, PublicationByIdSearchedAction } from '../actions/publication.actions';
 import { PaginateRefreshAction } from '../actions/paginate.actions';
 import { ConditionFilterAction, FilterOrderActionTypes, PriceOrderAction, SoldQuantityOrderAction, PriceRangeFilterAction, ClearFilterAndOrderAction } from '../actions/filter-order.actions';
 
@@ -20,6 +20,7 @@ export class PublicationEffets {
     private actions$: Actions,
     private publicationService: PublicationService
   ) {}
+
 
   @Effect()
   publicationSearch$ = this.actions$.pipe(
@@ -46,6 +47,20 @@ export class PublicationEffets {
           new PublicationSearchedAction({publications: results}),
           new PaginateRefreshAction(),
           new ClearFilterAndOrderAction()
+        ]),
+        catchError(() => EMPTY)
+      );
+    })
+  );
+
+  @Effect()
+  publicationFindById$ = this.actions$.pipe(
+    ofType<PublicationFindByIdAction>(PublicationActionTypes.FIND_BY_ID_PUBLICATION),
+    map(action => action.payload),
+    mergeMap(({id}) => {
+      return this.publicationService.findByIdPublication(id).pipe(
+        switchMap((publication: Publication) => [
+          new PublicationByIdSearchedAction({publication})
         ]),
         catchError(() => EMPTY)
       );

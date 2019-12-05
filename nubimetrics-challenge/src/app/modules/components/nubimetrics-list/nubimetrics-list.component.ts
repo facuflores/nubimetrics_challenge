@@ -4,11 +4,13 @@ import { Observable } from 'rxjs';
 
 import { AppState } from 'src/app/core/store/models/app.models';
 import { PublicationSearchAction, PublicationSearchAllAction } from 'src/app/core/store/actions/publication.actions';
-import { selectAllPublications } from 'src/app/core/store/selectors/publication.selectors';
+import { selectAllPublications, selectOnePublication } from 'src/app/core/store/selectors/publication.selectors';
 import { selectAllPaginate, selectPageSizePaginate } from 'src/app/core/store/selectors/paginate.selectors';
 
 import { Publication } from 'src/app/core/models/publication.model';
 import { selectSearchText } from 'src/app/core/store/selectors/filter-order.selectors';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { NubimetricsModalDetail } from './nubimetrics-modal-detail/nubimetrics-modal-detail.component';
 
 @Component({
   selector: 'nubimetrics-list',
@@ -25,7 +27,11 @@ export class NubimetricsList implements OnInit {
   public searchAll: boolean = false;
   public publications: Publication[];
 
-  constructor(private store: Store<AppState>) {}
+  private bsModalRef: BsModalRef;
+
+  constructor(
+    private store: Store<AppState>,
+    private modalService: BsModalService) {}
 
   ngOnInit() {
     this.listeners();
@@ -48,6 +54,15 @@ export class NubimetricsList implements OnInit {
       if (!this.searchAll) this.searchPublications(query);
       else this.searchAllPublications(query);
     });
+
+    this.store.select(selectOnePublication).subscribe((publication: Publication) => {
+      if (publication) this.showModalDetail(publication);
+    });
+  }
+
+  showModalDetail(publication: Publication) {
+    const initialState = {publication};
+    this.bsModalRef = this.modalService.show(NubimetricsModalDetail, {initialState});
   }
 
   searchPublications(query: string): void {

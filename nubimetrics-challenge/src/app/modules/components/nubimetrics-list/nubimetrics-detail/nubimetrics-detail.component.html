@@ -5,7 +5,7 @@
 
     <hr />
 
-    <h5 class="card-subtitle"><a href="#">{{ publication.title }}</a></h5>
+    <h5 class="card-subtitle"><a href="#" (click)="findPublicationById($event, publication.id)">{{ publication.title }}</a></h5>
     <h5 class="card-title mb-2 mt-1 text-muted">$ {{ publication.price }}</h5>
 
     <hr />

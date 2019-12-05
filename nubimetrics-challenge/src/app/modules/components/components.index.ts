@@ -1,3 +1,4 @@
+export { NubimetricsModalDetail } from './nubimetrics-list/nubimetrics-modal-detail/nubimetrics-modal-detail.component';
 export { NubimetricsDetail } from './nubimetrics-list/nubimetrics-detail/nubimetrics-detail.component';
 export { NubimetricsLayout } from './nubimetrics-layout/nubimetrics-layout.component';
 export { NubimetricsHeader } from "./nubimetrics-header/nubimetrics-header.component";
