@@ -38,9 +38,8 @@ export class NubimetricsList implements OnInit {
       this.publications = publications;
     });
 
-    this.store.select(selectAllPaginate).subscribe(({page, page_size, offset, limit}) => {
+    this.store.select(selectAllPaginate).subscribe(({page, offset, limit}) => {
       this.page = page;
-      this.pageSize = page_size;
       this.offset = offset;
       this.limit = limit;
     });

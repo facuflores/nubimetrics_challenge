@@ -4,12 +4,14 @@
   </div>
 </div>
 
-<div class="row" *ngIf="publications.length <= 0 && showNotResult">
+<!-- && showNotResult -->
+<div class="row" *ngIf="publications.length <= 0">
   <div class="col">
       <div class="alert alert-dismissible alert-info">
-        <h4 class="text-center">No hay publicaciones que coincidan con tu b&uacute;squeda.</h4>
+        <h4 class="text-center">No hay publicaciones que coincidan con tu b&uacute;squeda y/o filtraciones.</h4>
         <ul class="text-center">
           <li>Revis&aacute; la ortograf&iacute;a de la palabra.</li>
+          <li>Revis&aacute; los filtros si son los correctos.</li>
           <li>Utiliz&aacute; palabras m&aacute;s gen&eacute;ricas o menos palabras.</li>
         </ul>
       </div>

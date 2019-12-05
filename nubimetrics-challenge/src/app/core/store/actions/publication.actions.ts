@@ -4,7 +4,8 @@ import { Publication } from '../../models/publication.model';
 export enum PublicationActionTypes {
   SEARCH_ALL_PUBLICATIONS = "[All Publication - searching all] searching ...",
   SEARCH_PUBLICATIONS = "[Publication - searching] searching ...",
-  SEARCHED_PUBLICATIONS = "[Publication - end search] searched ..."
+  SEARCHED_PUBLICATIONS = "[Publication - end search] searched ...",
+  FILTERED_PUBLICATIONS = "[Publication - filtered] filtered ..."
 }
 
 export class PublicationSearchAllAction implements Action {
@@ -22,4 +23,9 @@ export class PublicationSearchedAction implements Action {
   constructor(public payload: {publications: Publication[]}) {};
 }
 
-export type PublicationAction = PublicationSearchedAction;
+export class PublicationFilteredAction implements Action {
+  readonly type = PublicationActionTypes.FILTERED_PUBLICATIONS;
+  constructor(public payload: {publications: Publication[]}) {}
+}
+
+export type PublicationAction = PublicationSearchedAction | PublicationFilteredAction;

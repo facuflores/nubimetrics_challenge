@@ -17,27 +17,27 @@
     
       <div class="form-group">
         <label for="orderByPrice">Order por precio:</label>
-        <select class="form-control" id="orderByPrice">
+        <select class="form-control" id="orderByPrice" name="orderByPrice" [(ngModel)]="order_price" (change)="orderByPrice()">
           <option value="">- Seleccione -</option>
-          <option value="desc">Menor precio</option>
-          <option value="asc">Mayor precio</option>
+          <option value="asc">Menor precio</option>
+          <option value="desc">Mayor precio</option>
         </select>
       </div>
     
       <div class="form-group">
-        <label for="orderByPrice">Order por cantidad vendidas:</label>
-        <select class="form-control" id="orderByPrice">
+        <label for="orderBySoldQuantity">Order por cantidad vendidas:</label>
+        <select class="form-control" id="orderBySoldQuantity" name="orderBySoldQuantity" [(ngModel)]="order_sold_quantity" (change)="orderBySoldQuantity($event.target.value)">
           <option value="">- Seleccione -</option>
-          <option value="asc">Más vendidas</option>
-          <option value="desc">Menos vendidas</option>
+          <option value="desc">Más vendidas</option>
+          <option value="asc">Menos vendidas</option>
         </select>
       </div>
     
       <hr />
     
       <div class="form-group">
-        <label for="condition">Condici&oacute;n:</label>
-        <select class="form-control" id="condition">
+        <label for="filterByCondition">Condici&oacute;n:</label>
+        <select class="form-control" id="filterByCondition" name="filterByCondition" [(ngModel)]="filter_condition" (change)="filterByCondition()">
           <option value="">- Seleccione -</option>
           <option value="new">Nuevos</option>
           <option value="used">Usados</option>
@@ -48,10 +48,15 @@
         <label for="orderByPrice">Rango de precio:</label>
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Min">
+            <input type="number" class="form-control" placeholder="Minimo" name="min" [(ngModel)]="range_min" >
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Max">
+            <input type="number" class="form-control" placeholder="Máximo" name="max" [(ngModel)]="range_max" >
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf="showBtnByRangePrice()">
+          <div class="col text-center">
+            <button type="button" class="btn btn-primary btn-sm" (click)="filterByRangePrice()">Filtrar</button>
           </div>
         </div>
       </div>

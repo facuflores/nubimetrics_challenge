@@ -9,3 +9,8 @@ export const selectSearchText = createSelector(
   filterOrderState,
   (state: FilterOrderState) => state.query
 );
+
+export const selectClearFilterAndOrder = createSelector(
+  filterOrderState,
+  (state: FilterOrderState) => state.clear_filters
+);

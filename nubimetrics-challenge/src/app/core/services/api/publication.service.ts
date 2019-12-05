@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, EMPTY } from 'rxjs';
 import { map, concatMap, expand, toArray } from "rxjs/operators";
-import { EMPTY } from 'rxjs';
+
+import * as fastFilter from 'fast-filter';
+import * as sort from 'fast-sort';
 
 import * as Api from './../constants';
 import { Publication } from '../../models/publication.model';
@@ -47,6 +49,50 @@ export class PublicationService {
       ),
       concatMap(({results}: ResponseApi) => results),
       toArray()
+    );
+  }
+
+  public orderPublicationByPrice(order: string, publications: Publication[]): Observable<Publication[]> {
+    return of(publications).pipe(
+      map((publications: Publication[]) => {
+        switch(order) {
+          case 'desc': return sort(publications).desc((pbl: Publication) => pbl.price);
+          case 'asc': return sort(publications).asc((pbl: Publication) => pbl.price);
+          default: return publications;
+        }
+      })
+    );
+  }
+
+  public orderPublicationBySoldQuantity(order: string, publications: Publication[]): Observable<Publication[]> {
+    return of(publications).pipe(
+      map((publications: Publication[]) => {
+        switch(order) {
+          case 'desc': return sort(publications).desc((pbl: Publication) => pbl.sold_quantity);
+          case 'asc': return sort(publications).asc((pbl: Publication) => pbl.sold_quantity);
+          default: return publications;
+        }
+      })
+    );
+  }
+
+  public filterPublicationsByCondition(condition: string, publications: Publication[]): Observable<Publication[]> {
+    return of(publications).pipe(
+      map((publications: Publication[]) => {
+        return fastFilter(publications, function(publication: Publication) {
+          return publication.condition == condition;
+        });
+      })
+    );
+  }
+
+  public filterPublicationsByRangePrice(min: number, max: number, publications: Publication[]): Observable<Publication[]> {
+    return of(publications).pipe(
+      map((publications: Publication[]) => {
+        return fastFilter(publications, function(publication: Publication) {
+          return publication.price >= min && publication.price <= max;
+        });
+      })
     );
   }
 
