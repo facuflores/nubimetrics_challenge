@@ -14,6 +14,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { PublicationEffets } from './core/store/effects/publication.effects';
 
 import { NgxSpinnerModule } from "ngx-spinner";
+import { GoTopButtonModule } from 'ng2-go-top-button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './modules/components/app/app.component';
 import { ComponentsModule } from './modules/components.module';
@@ -25,6 +27,7 @@ import { ServiceModule } from './core/services/service.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({
       loader: LoaderReducer,
       paginate: PaginateReducer,
@@ -37,9 +40,11 @@ import { ServiceModule } from './core/services/service.module';
     }),
     EffectsModule.forRoot([PublicationEffets]),
     NgxSpinnerModule,
+    GoTopButtonModule,
     ServiceModule,
     ComponentsModule
   ],
+  exports: [GoTopButtonModule],
   providers: [],
   bootstrap: [AppComponent]
 })

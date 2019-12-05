@@ -25,6 +25,7 @@
     "@ngrx/store-devtools": "^8.5.2",
     "fast-filter": "^1.0.4",
     "fast-sort": "^1.6.0",
+    "ng2-go-top-button": "^8.0.1",
     "ngx-bootstrap": "^5.2.0",
     "ngx-spinner": "^8.0.3",
     "rxjs": "~6.4.0",

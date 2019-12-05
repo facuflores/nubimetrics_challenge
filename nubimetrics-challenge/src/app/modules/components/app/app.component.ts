@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -9,7 +9,8 @@ import { selectIsLoading } from 'src/app/core/store/selectors/loader.selectors';
 @Component({
   selector: 'nubimetrics-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
 
