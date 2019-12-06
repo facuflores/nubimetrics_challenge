@@ -183,7 +183,6 @@ export class PublicationEffets {
     ofType<NotifyErrorAction>(NotificationActionTypes.NOTIFY_ERROR),
     map(action => action.payload),
     tap(({message}) => {
-      console.log('entro');
       this.notifyService.danger(message);
     })
   );
