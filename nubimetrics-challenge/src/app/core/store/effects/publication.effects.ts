@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 
-import { EMPTY, Observable, of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map, mergeMap, catchError, switchMap, tap } from 'rxjs/operators';
 
 import { PublicationSearchAction,PublicationActionTypes, PublicationSearchedAction, PublicationSearchAllAction, PublicationFilteredAction, PublicationFindByIdAction, PublicationByIdSearchedAction } from '../actions/publication.actions';
@@ -15,6 +16,7 @@ import { NotificationService } from '../../services/utils/notification.service';
 
 import { ResponseApi } from '../../models/response-api.model';
 import { Publication } from '../../models/publication.model';
+import { AppState } from '../models/app.models';
 
 
 /**
@@ -26,7 +28,8 @@ export class PublicationEffets {
   constructor(
     private actions$: Actions,
     private notifyService: NotificationService,
-    private publicationService: PublicationService
+    private publicationService: PublicationService,
+    private store: Store<AppState>
   ) {}
 
 
@@ -46,10 +49,8 @@ export class PublicationEffets {
           new LoaderEndAction()
         ]),
         catchError((err: Error) => {
-          return of([
-            new LoaderEndAction(),
-            new NotifyErrorAction({message: err.message})
-          ]);
+          this.store.dispatch(new LoaderEndAction());
+          return of(new NotifyErrorAction({message: err.message}));
         })
       );
     })
@@ -72,10 +73,8 @@ export class PublicationEffets {
           new LoaderEndAction()
         ]),
         catchError((err: Error) => {
-          return of([
-            new LoaderEndAction(),
-            new NotifyErrorAction({message: err.message})
-          ]);
+          this.store.dispatch(new LoaderEndAction());
+          return of(new NotifyErrorAction({message: err.message}));
         })
       );
     })
@@ -96,10 +95,8 @@ export class PublicationEffets {
           new LoaderEndAction()
         ]),
         catchError((err: Error) => {
-          return of([
-            new LoaderEndAction(),
-            new NotifyErrorAction({message: err.message})
-          ]);
+          this.store.dispatch(new LoaderEndAction());
+          return of(new NotifyErrorAction({message: err.message}));
         })
       );
     })
@@ -186,6 +183,7 @@ export class PublicationEffets {
     ofType<NotifyErrorAction>(NotificationActionTypes.NOTIFY_ERROR),
     map(action => action.payload),
     tap(({message}) => {
+      console.log('entro');
       this.notifyService.danger(message);
     })
   );

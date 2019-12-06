@@ -26,7 +26,7 @@
     
       <div class="form-group">
         <label for="orderBySoldQuantity">Order por cantidad vendidas:</label>
-        <select class="form-control" id="orderBySoldQuantity" name="orderBySoldQuantity" [(ngModel)]="order_sold_quantity" (change)="orderBySoldQuantity($event.target.value)">
+        <select class="form-control" id="orderBySoldQuantity" name="orderBySoldQuantity" [(ngModel)]="order_sold_quantity" (change)="orderBySoldQuantity()">
           <option value="">- Seleccione -</option>
           <option value="desc">Más vendidas</option>
           <option value="asc">Menos vendidas</option>
