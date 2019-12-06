@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Component Layout
+ */
 @Component({
   selector: 'nubimetrics-layout',
   templateUrl: './nubimetrics-layout.component.html',

@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Publication } from 'src/app/core/models/publication.model';
 import { BsModalRef } from 'ngx-bootstrap';
 
+/**
+ * Componente modal de publicación
+ */
 @Component({
   selector: 'nubimetrics-modal-detail',
   templateUrl: './nubimetrics-modal-detail.component.html',
