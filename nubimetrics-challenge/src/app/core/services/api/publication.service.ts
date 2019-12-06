@@ -11,6 +11,9 @@ import { Api } from './../constants';
 import { Publication } from '../../models/publication.model';
 import { ResponseApi } from '../../models/response-api.model';
 
+/**
+ * Servicio de Publicación
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -20,6 +23,11 @@ export class PublicationService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Genera una publicación en base a los datos 
+   * que llegan de la respuesta del api
+   * @param data publicación
+   */
   private buildPublication(data: Publication): Publication {
     if (data != null) {
       data = new Publication(data);
@@ -27,12 +35,21 @@ export class PublicationService {
     return data;
   }
 
+  /**
+   * Genera un listado de publicaciones en base a los datos
+   * que llegan de la respuesta del api
+   * @param response respuesta de api
+   */
   private buildPublications(response: ResponseApi): ResponseApi {
     const publications = response.results.map((data) => new Publication(data));
     response.results = publications;
     return response;
   }
 
+  /**
+   * Genera los parametros (query) para la consulta
+   * @param params parametros
+   */
   private buildHttpParams(params: any): HttpParams {
     const httpParams = new HttpParams()
       .set("q", `${params[0]}`)
@@ -41,6 +58,12 @@ export class PublicationService {
     return httpParams;
   }
 
+  /**
+   * Realiza la busqueda de publicaciones
+   * @param text texto a buscar
+   * @param offset desde para paginación
+   * @param limit hasta para paginación
+   */
   public searchPublications(text: string, offset: number, limit: number): Observable<ResponseApi> {
     const httpParams = this.buildHttpParams(arguments);
     return this.http.get<ResponseApi>(Api.SEARCH_PUBLICATIONS, {  params: httpParams }).pipe(
@@ -48,6 +71,13 @@ export class PublicationService {
     );
   }
 
+  /**
+   * Realiza la busqueda de publicaciones 
+   * con texto
+   * @param text texto a buscar
+   * @param offset desde para paginación
+   * @param limit hasta para paginación
+   */
   public searchAllPublications(text: string, offset: number, limit: number): Observable<Publication[]> {
     return this.searchPublications(text, offset, limit).pipe(
       expand(({paging}: ResponseApi) =>
@@ -59,6 +89,11 @@ export class PublicationService {
     );
   }
 
+  /**
+   * Realiza la busqueda de una publicación 
+   * por su id
+   * @param id id de publicación
+   */
   public findByIdPublication(id: string): Observable<Publication> {
     const url = Api.FIND_BY_ID_PUBLICATION.replace(":id", id);
     return this.http.get<Publication>(url).pipe(
@@ -66,6 +101,11 @@ export class PublicationService {
     );
   }
 
+  /**
+   * Ordena las publicaciones por precio de forma asc|desc
+   * @param order asc|desc
+   * @param publications listado de publicaciones
+   */
   public orderPublicationByPrice(order: string, publications: Publication[]): Observable<Publication[]> {
     return of(publications).pipe(
       map((publications: Publication[]) => {
@@ -78,6 +118,12 @@ export class PublicationService {
     );
   }
 
+  /**
+   * Ordena las publicaciones por cantidades vendidas de 
+   * forma asc|desc
+   * @param order asc|desc
+   * @param publications listado de publicaciones
+   */
   public orderPublicationBySoldQuantity(order: string, publications: Publication[]): Observable<Publication[]> {
     return of(publications).pipe(
       map((publications: Publication[]) => {
@@ -90,6 +136,11 @@ export class PublicationService {
     );
   }
 
+  /**
+   * Filtra las publicaciones por su condicion nuevo|usado
+   * @param condition condición (nuevo|usado)
+   * @param publications listado de publicaciones
+   */
   public filterPublicationsByCondition(condition: string, publications: Publication[]): Observable<Publication[]> {
     return of(publications).pipe(
       map((publications: Publication[]) => {
@@ -100,6 +151,12 @@ export class PublicationService {
     );
   }
 
+  /**
+   * Filtra las publicaciones entre un minimo y máximo
+   * @param min minimo
+   * @param max máximo
+   * @param publications listado de publicaciones
+   */
   public filterPublicationsByRangePrice(min: number, max: number, publications: Publication[]): Observable<Publication[]> {
     return of(publications).pipe(
       map((publications: Publication[]) => {

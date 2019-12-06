@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Filtro para el tipo de estado - Publicación
+ */
 @Pipe({
   name: 'statusType'
 })

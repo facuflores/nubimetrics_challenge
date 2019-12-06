@@ -1,3 +1,6 @@
+/**
+ * Modelo de paginación
+ */
 export interface Paging {
   total: number;
   offset: number;

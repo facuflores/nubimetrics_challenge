@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Filtro para tipo de condicion - Publicación
+ */
 @Pipe({
   name: 'conditionType'
 })

@@ -4,6 +4,9 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+/**
+ * Clase interceptora para manejo de errores
+ */
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
@@ -11,6 +14,11 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(catchError(this.handleError));
     }
 
+    /**
+     * Metodo que de acuerdo al tipo de error
+     * devuelve el mensaje correspondiente
+     * @param err http error
+     */
     private handleError(err: HttpErrorResponse): any {
       let errMessage = null;
       

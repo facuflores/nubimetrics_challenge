@@ -1,5 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Filtro para tipo de exposición - Publicación
+ */
 @Pipe({
   name: 'listingType'
 })

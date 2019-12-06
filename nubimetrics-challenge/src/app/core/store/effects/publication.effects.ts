@@ -8,15 +8,18 @@ import { PublicationSearchAction,PublicationActionTypes, PublicationSearchedActi
 import { PaginateRefreshAction } from '../actions/paginate.actions';
 import { ConditionFilterAction, FilterOrderActionTypes, PriceOrderAction, SoldQuantityOrderAction, PriceRangeFilterAction, ClearFilterAndOrderAction } from '../actions/filter-order.actions';
 import { NotifyErrorAction, NotificationActionTypes } from '../actions/notification.actions';
+import { LoaderEndAction } from '../actions/loader.actions';
 
 import { PublicationService } from '../../services/api/publication.service';
 import { NotificationService } from '../../services/utils/notification.service';
 
 import { ResponseApi } from '../../models/response-api.model';
 import { Publication } from '../../models/publication.model';
-import { LoaderStartAction, LoaderEndAction } from '../actions/loader.actions';
 
 
+/**
+ * Clase de efectos - Publicación
+ */
 @Injectable()
 export class PublicationEffets {
 
@@ -27,6 +30,10 @@ export class PublicationEffets {
   ) {}
 
 
+  /**
+   * Encargado de comunicar al servicio la realización de
+   * la busqueda de publicaciones y refrescar los datos del almacen
+   */
   @Effect()
   publicationSearch$ = this.actions$.pipe(
     ofType<PublicationSearchAction>(PublicationActionTypes.SEARCH_PUBLICATIONS),
@@ -48,6 +55,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio la realización de
+   * la busqueda de publicaciones por su texto y refrescar los datos del almacen
+   */
   @Effect()
   publicationSearchAll$ = this.actions$.pipe(
     ofType<PublicationSearchAllAction>(PublicationActionTypes.SEARCH_ALL_PUBLICATIONS),
@@ -70,6 +81,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio la realización de la
+   * busqueda de una publicación por su id y refrescar el almacen
+   */
   @Effect()
   publicationFindById$ = this.actions$.pipe(
     ofType<PublicationFindByIdAction>(PublicationActionTypes.FIND_BY_ID_PUBLICATION),
@@ -90,6 +105,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio la realización del
+   * filtrado de publicaciones por su condición y refrescar los datos del almacen
+   */
   @Effect()
   publicationConditionFilter$ = this.actions$.pipe(
     ofType<ConditionFilterAction>(FilterOrderActionTypes.FILTER_CONDITION),
@@ -104,6 +123,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio la realización del
+   * filtrado de publicaciones entre un minimo,máximo y refrescar los datos del almacen
+   */
   @Effect()
   publicationPriceRangeFilter$ = this.actions$.pipe(
     ofType<PriceRangeFilterAction>(FilterOrderActionTypes.FILTER_RANGE_PRICE),
@@ -118,6 +141,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio la realización de
+   * la ordenación de publicaciones por su precio y refrescar los datos del almacen
+   */
   @Effect()
   publicationPriceOrder$ = this.actions$.pipe(
     ofType<PriceOrderAction>(FilterOrderActionTypes.ORDER_BY_PRICE),
@@ -132,6 +159,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio la realización de
+   * la ordenación de publicaciones por cantidad vendidas y refrescar los datos del almacen
+   */
   @Effect()
   publicationSoldQuantityOrder$ = this.actions$.pipe(
     ofType<SoldQuantityOrderAction>(FilterOrderActionTypes.ORDER_BY_SOLD_QUANTITY),
@@ -146,6 +177,10 @@ export class PublicationEffets {
     })
   );
 
+  /**
+   * Encargado de comunicar al servicio de notificaciones 
+   * el error correspondiente
+   */
   @Effect({dispatch: false})
   publicationErrors$ = this.actions$.pipe(
     ofType<NotifyErrorAction>(NotificationActionTypes.NOTIFY_ERROR),

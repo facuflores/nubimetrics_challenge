@@ -1,6 +1,9 @@
 import { Publication } from '../../models/publication.model';
 import { PublicationAction, PublicationActionTypes } from '../actions/publication.actions';
 
+/**
+ * Modelo de almacen para publicación
+ */
 export interface PublicationState {
   publications: {
     temp: Publication[],
@@ -17,6 +20,12 @@ const initialState: PublicationState = {
   publication: null
 }
 
+/**
+ * Escucha las transiciones de estado
+ * para el almacen de publicación
+ * @param state Almacen
+ * @param action Acciones
+ */
 export function PublicationReducer(state: PublicationState = initialState, action: PublicationAction) {
   let stateNew = {...state};
   switch (action.type) {

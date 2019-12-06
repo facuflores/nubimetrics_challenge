@@ -3,6 +3,9 @@ import { PagingState } from '../reducers/paginate.reducers';
 import { FilterOrderState } from '../reducers/filter-order.reducer';
 import { LoaderState } from '../reducers/loader.reducers';
 
+/**
+ * Modelo de Almacen
+ */
 export interface AppState {
   readonly paginate: PagingState;
   readonly publication: PublicationState;

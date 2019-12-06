@@ -1,3 +1,6 @@
+/**
+ * Modelo de publicación
+ */
 export class Publication {
   id?: string;
   title?: string;

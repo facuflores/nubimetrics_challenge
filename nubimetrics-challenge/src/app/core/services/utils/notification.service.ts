@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 export type NotifyAlertType = 'success' | 'error' | 'warning' | 'info' | 'question';
 
 /**
- * Notifications of Sweetalert2
+ * Servicio de Notificaciones
  */
 @Injectable({
   providedIn: 'root'
