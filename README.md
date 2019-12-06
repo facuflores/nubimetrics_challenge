@@ -6,7 +6,7 @@ Evaluación Técnica para Nubimetrics
 - Proyecto probado con 1000 registros
 
 ## Demo de la aplicación
-- Link a sitio: http://emmademotest.000webhostapp.com/nubimetrics_challenge
+- Link a sitio: https://emmademotest.000webhostapp.com/nubimetrics_challenge
 
 ## Requisitos
 Se require tener: <br>
